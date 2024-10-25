@@ -258,6 +258,31 @@
     }
 
     setInterval(countdown, 1000);
+        function openGift() {
+    const videoModal = document.getElementById('videoModal');
+    const video = document.getElementById('birthdayVideo');
+    const audio = document.getElementById('backgroundMusic');
+
+    audio.muted = false;
+    audio.play();
+
+    videoModal.style.display = 'flex';
+    video.play();
+
+    // Request full screen for the video
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    } else if (video.webkitRequestFullscreen) { // Safari
+        video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) { // IE11
+        video.msRequestFullscreen();
+    }
+
+    video.onended = function () {
+        videoModal.style.display = 'none';
+    };
+}
+
     </script>
 
 </body>
