@@ -109,8 +109,14 @@
         }
 
         @keyframes float {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            100% { transform: translate(-50%, -100vh) scale(0.5); opacity: 0; }
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -100vh) scale(0.5);
+                opacity: 0;
+            }
         }
 
         .video-modal {
@@ -162,7 +168,7 @@
     </div>
 
     <div class="video-modal" id="videoModal">
-        <video id="birthdayVideo" autoplay>
+        <video id="birthdayVideo" controls autoplay muted>
             <source src="./birthday-video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -188,13 +194,10 @@
         function openGift() {
             const videoModal = document.getElementById('videoModal');
             const video = document.getElementById('birthdayVideo');
-            const audio = document.getElementById('backgroundMusic');
-
-            audio.muted = false;
-            audio.play();
-
             videoModal.style.display = 'flex';
-            video.play();
+            video.play().catch(error => {
+                console.error("Video playback failed:", error);
+            });
             video.onended = function () {
                 videoModal.style.display = 'none';
             };
