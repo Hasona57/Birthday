@@ -134,6 +134,37 @@
             font-size: 1.5rem;
             margin-top: 20px;
         }
+
+        /* Media Query for Mobile Screens */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+                margin-top: 30px;
+            }
+
+            h2 {
+                font-size: 2rem;
+                margin: 10px 0;
+            }
+
+            p, .countdown {
+                font-size: 1.2rem;
+                padding: 0 10px;
+            }
+
+            .message {
+                padding: 15px;
+            }
+
+            .gift img {
+                width: 80px;
+            }
+
+            .heart {
+                width: 30px;
+                height: 30px;
+            }
+        }
     </style>
 </head>
 
@@ -227,8 +258,7 @@
     }
 
     setInterval(countdown, 1000);
-</script>
-
+    </script>
 
 </body>
 
