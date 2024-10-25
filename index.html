@@ -228,18 +228,33 @@
         video.play();
         
         // Request full screen for the video
-        if (video.requestFullscreen) {
-            video.requestFullscreen();
-        } else if (video.webkitRequestFullscreen) { // Safari
-            video.webkitRequestFullscreen();
-        } else if (video.msRequestFullscreen) { // IE11
-            video.msRequestFullscreen();
+    function openGift() {
+        const videoModal = document.getElementById('videoModal');
+        const video = document.getElementById('birthdayVideo');
+        const audio = document.getElementById('backgroundMusic');
+
+        audio.muted = false;
+        audio.play();
+
+        videoModal.style.display = 'flex';
+        video.play();
+
+        // Check if the screen width is larger than 600px before requesting fullscreen
+        if (window.innerWidth > 600) {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { // Safari
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { // IE11
+                video.msRequestFullscreen();
+            }
         }
 
         video.onended = function () {
             videoModal.style.display = 'none';
         };
     }
+
 
     function countdown() {
         const endDate = new Date("2024-10-24T00:00:00").getTime();
