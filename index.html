@@ -162,7 +162,7 @@
     </div>
 
     <div class="video-modal" id="videoModal">
-        <video id="birthdayVideo" autoplay muted playsinline>
+        <video id="birthdayVideo" autoplay muted>
             <source src="./birthday-video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -174,50 +174,61 @@
     </audio>
 
     <script>
-        const hearts = document.querySelector('.hearts');
-        for (let i = 0; i < 20; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = `${Math.random() * 100}vw`;
-            heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
-            heart.style.width = `${Math.random() * 50 + 10}px`;
-            heart.style.height = heart.style.width;
-            hearts.appendChild(heart);
+    const hearts = document.querySelector('.hearts');
+    for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        heart.style.width = `${Math.random() * 50 + 10}px`;
+        heart.style.height = heart.style.width;
+        hearts.appendChild(heart);
+    }
+
+    function openGift() {
+        const videoModal = document.getElementById('videoModal');
+        const video = document.getElementById('birthdayVideo');
+        const audio = document.getElementById('backgroundMusic');
+
+        audio.muted = false;
+        audio.play();
+
+        videoModal.style.display = 'flex';
+        video.play();
+        
+        // Request full screen for the video
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) { // Safari
+            video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) { // IE11
+            video.msRequestFullscreen();
         }
 
-        function openGift() {
-            const videoModal = document.getElementById('videoModal');
-            const video = document.getElementById('birthdayVideo');
-            const audio = document.getElementById('backgroundMusic');
+        video.onended = function () {
+            videoModal.style.display = 'none';
+        };
+    }
 
-            audio.muted = false;
-            audio.play();
+    function countdown() {
+        const endDate = new Date("2024-10-24T00:00:00").getTime();
+        const now = new Date().getTime();
+        const timeDiff = endDate - now;
 
-            videoModal.style.display = 'flex';
-            video.play();
-            video.onended = function () {
-                videoModal.style.display = 'none';
-            };
+        if (timeDiff > 0) {
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            document.getElementById('countdownTimer').innerHTML = `Birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        } else {
+            document.getElementById('countdownTimer').innerHTML = 'Happy Birthday!';
         }
+    }
 
-        function countdown() {
-            const endDate = new Date("2024-10-24T00:00:00").getTime();
-            const now = new Date().getTime();
-            const timeDiff = endDate - now;
+    setInterval(countdown, 1000);
+</script>
 
-            if (timeDiff > 0) {
-                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-                document.getElementById('countdownTimer').innerHTML = `Birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-            } else {
-                document.getElementById('countdownTimer').innerHTML = 'Happy Birthday!';
-            }
-        }
-
-        setInterval(countdown, 1000);
-    </script>
 
 </body>
 
