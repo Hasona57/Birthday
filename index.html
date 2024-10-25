@@ -134,6 +134,37 @@
             font-size: 1.5rem;
             margin-top: 20px;
         }
+
+        /* Media Query for Mobile Screens */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+                margin-top: 30px;
+            }
+
+            h2 {
+                font-size: 2rem;
+                margin: 10px 0;
+            }
+
+            p, .countdown {
+                font-size: 1.2rem;
+                padding: 0 10px;
+            }
+
+            .message {
+                padding: 15px;
+            }
+
+            .gift img {
+                width: 80px;
+            }
+
+            .heart {
+                width: 30px;
+                height: 30px;
+            }
+        }
     </style>
 </head>
 
@@ -178,9 +209,9 @@
     for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
-        heart.style.left = ${Math.random() * 100}vw;
-        heart.style.animationDuration = ${Math.random() * 3 + 2}s;
-        heart.style.width = ${Math.random() * 50 + 10}px;
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        heart.style.width = `${Math.random() * 50 + 10}px`;
         heart.style.height = heart.style.width;
         hearts.appendChild(heart);
     }
@@ -220,15 +251,14 @@
             const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-            document.getElementById('countdownTimer').innerHTML = Birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s;
+            document.getElementById('countdownTimer').innerHTML = `Birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
         } else {
             document.getElementById('countdownTimer').innerHTML = 'Happy Birthday!';
         }
     }
 
     setInterval(countdown, 1000);
-</script>
-
+    </script>
 
 </body>
 
