@@ -109,14 +109,8 @@
         }
 
         @keyframes float {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -100vh) scale(0.5);
-                opacity: 0;
-            }
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -100vh) scale(0.5); opacity: 0; }
         }
 
         .video-modal {
@@ -144,65 +138,87 @@
 </head>
 
 <body>
+
     <h1>Happy Birthday, Mom!</h1>
     <h2>Sending Love 💖</h2>
 
     <div class="message">
-        <p>Mom, you are the light of my life, and even though I can't be there with you today, my heart is always with you...</p>
+        <p>Mom, you are the light of my life, and even though I can't be there with you today, my heart is always with you. I hope your day is filled with joy, laughter, and love. You deserve the world, and I am so lucky to have you as my mother. Have the most amazing birthday!</p>
+        <p>Sending you hugs, kisses, and all the love in the world! 💕🎉</p>
     </div>
 
-    <!-- Gift Box Icon -->
+    <div class="countdown" id="countdownTimer"></div>
+
     <div class="gift" onclick="openGift()">
         <img src="https://cdn-icons-png.flaticon.com/128/6453/6453565.png" alt="Gift Icon">
     </div>
 
-    <!-- Fullscreen Video Modal -->
+    <div class="hearts">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+    </div>
+
     <div class="video-modal" id="videoModal">
-        <video id="birthdayVideo" autoplay muted playsinline controls>
+        <video id="birthdayVideo" autoplay>
             <source src="./birthday-video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 
-    <!-- Background Music -->
     <audio id="backgroundMusic" autoplay loop muted>
         <source src="./background-music.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
 
     <script>
-        // Fullscreen Video Play
+        const hearts = document.querySelector('.hearts');
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            heart.style.width = `${Math.random() * 50 + 10}px`;
+            heart.style.height = heart.style.width;
+            hearts.appendChild(heart);
+        }
+
         function openGift() {
             const videoModal = document.getElementById('videoModal');
             const video = document.getElementById('birthdayVideo');
+            const audio = document.getElementById('backgroundMusic');
+
+            audio.muted = false;
+            audio.play();
 
             videoModal.style.display = 'flex';
-            video.play().then(() => {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) { // Safari
-                    video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) { // IE/Edge
-                    video.msRequestFullscreen();
-                }
-            }).catch(error => {
-                console.error("Video playback failed:", error);
-            });
-
+            video.play();
             video.onended = function () {
                 videoModal.style.display = 'none';
             };
         }
 
-        // Enable Background Music Playback
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        backgroundMusic.muted = false; // Ensure it's unmuted
+        function countdown() {
+            const endDate = new Date("2024-10-24T00:00:00").getTime();
+            const now = new Date().getTime();
+            const timeDiff = endDate - now;
 
-        // Attempt to play background music
-        backgroundMusic.play().catch(error => {
-            console.error("Background music playback failed:", error);
-        });
+            if (timeDiff > 0) {
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+                document.getElementById('countdownTimer').innerHTML = `Birthday in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById('countdownTimer').innerHTML = 'Happy Birthday!';
+            }
+        }
+
+        setInterval(countdown, 1000);
     </script>
+
 </body>
 
 </html>
