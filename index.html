@@ -204,7 +204,37 @@
         Your browser does not support the audio element.
     </audio>
 
-    <script>
+<script>
+    function openGift() {  
+        const videoModal = document.getElementById('videoModal');
+        const video = document.getElementById('birthdayVideo');
+        const audio = document.getElementById('backgroundMusic');
+
+        // Unmute and play background audio
+        audio.muted = false;
+        audio.play();
+
+        // Display the video modal
+        videoModal.style.display = 'flex';
+        video.play();
+
+        // Request full-screen mode only on screens larger than 600px
+        if (window.innerWidth > 600) {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+
+        // Close the modal after video ends
+        video.onended = function () {
+            videoModal.style.display = 'none';
+        };
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         const hearts = document.querySelector('.hearts');
         for (let i = 0; i < 20; i++) {
@@ -215,36 +245,6 @@
             heart.style.width = `${Math.random() * 50 + 10}px`;
             heart.style.height = heart.style.width;
             hearts.appendChild(heart);
-        }
-
-        window.openGift = function() {  // Define as a property of `window` to ensure global scope
-            const videoModal = document.getElementById('videoModal');
-            const video = document.getElementById('birthdayVideo');
-            const audio = document.getElementById('backgroundMusic');
-
-            // Unmute and play background audio
-            audio.muted = false;
-            audio.play();
-
-            // Display the video modal
-            videoModal.style.display = 'flex';
-            video.play();
-
-            // Request full-screen mode only on screens larger than 600px
-            if (window.innerWidth > 600) {
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) {
-                    video.webkitRequestFullscreen();
-                } else if (video.msRequestFullscreen) {
-                    video.msRequestFullscreen();
-                }
-            }
-
-            // Close the modal after video ends
-            video.onended = function () {
-                videoModal.style.display = 'none';
-            };
         }
 
         function countdown() {
@@ -266,6 +266,7 @@
         setInterval(countdown, 1000);
     });
 </script>
+
 
 
 
