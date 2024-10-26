@@ -221,38 +221,30 @@
         const video = document.getElementById('birthdayVideo');
         const audio = document.getElementById('backgroundMusic');
 
+        // Unmute and play background audio
         audio.muted = false;
         audio.play();
 
-        videoModal.style.display = 'flex';
-        video.play();
-        
-        // Request full screen for the video
-    function openGift() {
-        const videoModal = document.getElementById('videoModal');
-        const video = document.getElementById('birthdayVideo');
-        const audio = document.getElementById('backgroundMusic');
-
-        audio.muted = false;
-        audio.play();
-
+        // Display the video modal
         videoModal.style.display = 'flex';
         video.play();
 
-        // Check if the screen width is larger than 600px before requesting fullscreen
+        // Request full-screen mode only on screens larger than 600px
+        if (window.innerWidth > 600) {
             if (video.requestFullscreen) {
                 video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) { // Safari
+            } else if (video.webkitRequestFullscreen) {
                 video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) { // IE11
+            } else if (video.msRequestFullscreen) {
                 video.msRequestFullscreen();
             }
+        }
 
+        // Close the modal after video ends
         video.onended = function () {
             videoModal.style.display = 'none';
         };
     }
-
 
     function countdown() {
         const endDate = new Date("2024-10-24T00:00:00").getTime();
@@ -271,7 +263,8 @@
     }
 
     setInterval(countdown, 1000);
-    </script>
+</script>
+
 
 </body>
 
